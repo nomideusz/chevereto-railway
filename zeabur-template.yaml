@@ -1,0 +1,106 @@
+# yaml-language-server: $schema=https://schema.zeabur.app/template.json
+apiVersion: zeabur.com/v1
+kind: Template
+metadata:
+    name: Chevereto
+spec:
+    description: Self-hosted image & video sharing — your own Imgur with albums and users.
+    icon: https://raw.githubusercontent.com/chevereto/chevereto/HEAD/content/legacy/system/favicon.png
+    tags:
+        - Images
+        - Media
+        - Sharing
+        - PHP
+        - Open Source
+    readme: |-
+        # Chevereto
+
+        [Chevereto](https://chevereto.com/) is a self-hosted image and video sharing platform — your own Imgur: drag-and-drop uploads, albums, tags, user accounts, moderation tools, and direct hotlink URLs. This template deploys the free open-source edition (V4, AGPLv3).
+
+        ## After deployment
+
+        Open the service domain — Chevereto's built-in installer runs on first visit and creates your admin account. Upload limits are preconfigured to 2 GB per file.
+
+        Template source: [nomideusz/chevereto-railway](https://github.com/nomideusz/chevereto-railway)
+    variables:
+        - key: PUBLIC_DOMAIN
+          type: DOMAIN
+          name: Public Domain
+          description: The domain of your Chevereto site
+    services:
+        - name: mysql
+          icon: https://www.mysql.com/common/logos/logo-mysql-170x115.png
+          template: PREBUILT
+          spec:
+            source:
+                image: ghcr.io/nomideusz/mysql-datadir:8
+            ports:
+                - id: database
+                  port: 3306
+                  type: TCP
+            volumes:
+                - id: data
+                  dir: /var/lib/mysql
+            env:
+                MYSQL_DATABASE:
+                    default: chevereto
+                    expose: true
+                MYSQL_USER:
+                    default: chevereto
+                    expose: true
+                MYSQL_PASSWORD:
+                    default: ${PASSWORD}
+                    expose: true
+                MYSQL_RANDOM_ROOT_PASSWORD:
+                    default: "1"
+                    expose: false
+                MYSQL_HOST:
+                    default: ${CONTAINER_HOSTNAME}
+                    expose: true
+        - name: chevereto
+          icon: https://raw.githubusercontent.com/chevereto/chevereto/HEAD/content/legacy/system/favicon.png
+          template: PREBUILT
+          domainKey: PUBLIC_DOMAIN
+          dependencies:
+            - mysql
+          spec:
+            source:
+                image: ghcr.io/nomideusz/chevereto-railway:latest
+            ports:
+                - id: web
+                  port: 8080
+                  type: HTTP
+            volumes:
+                - id: images
+                  dir: /var/www/html/images
+            env:
+                CHEVERETO_DB_HOST:
+                    default: ${MYSQL_HOST}
+                    expose: false
+                CHEVERETO_DB_PORT:
+                    default: "3306"
+                    expose: false
+                CHEVERETO_DB_NAME:
+                    default: ${MYSQL_DATABASE}
+                    expose: false
+                CHEVERETO_DB_USER:
+                    default: ${MYSQL_USER}
+                    expose: false
+                CHEVERETO_DB_PASS:
+                    default: ${MYSQL_PASSWORD}
+                    expose: false
+                CHEVERETO_HOSTNAME:
+                    default: ${ZEABUR_WEB_DOMAIN}
+                    expose: false
+                CHEVERETO_HTTPS:
+                    default: "1"
+                    expose: false
+                CHEVERETO_MAX_POST_SIZE:
+                    default: 2G
+                    expose: false
+                CHEVERETO_MAX_UPLOAD_FILE_SIZE:
+                    default: 2G
+                    expose: false
+            instructions:
+                - title: Open your site (installer runs on first visit)
+                  content: https://${ZEABUR_WEB_DOMAIN}
