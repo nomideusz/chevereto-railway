@@ -6,4 +6,10 @@ FROM ghcr.io/chevereto/chevereto:latest
 USER root
 RUN printf '# mpm_event disabled for Railway\n' > /etc/apache2/mods-available/mpm_event.load \
  && printf '# mpm_event disabled for Railway\n' > /etc/apache2/mods-available/mpm_event.conf
-USER www-data
+
+# Stay root for the entrypoint chown; apache master runs as root, PHP workers as www-data
+# (stock php:apache behavior — upstream's USER www-data can't fix root-owned volume mounts).
+COPY railway-entrypoint.sh /railway-entrypoint.sh
+RUN chmod +x /railway-entrypoint.sh
+ENTRYPOINT ["/railway-entrypoint.sh"]
+CMD ["apache2-foreground"]
