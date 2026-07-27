@@ -1,0 +1,121 @@
+{
+  "buckets": {},
+  "services": {
+    "74f199f5-3a88-483b-9fa8-5fa338164569": {
+      "icon": "https://raw.githubusercontent.com/chevereto/chevereto/HEAD/content/legacy/system/favicon.png",
+      "name": "chevereto",
+      "deploy": {
+        "startCommand": "",
+        "healthcheckPath": "/chevere.svg",
+        "restartPolicyType": "ON_FAILURE",
+        "restartPolicyMaxRetries": 10
+      },
+      "source": {
+        "repo": "https://github.com/nomideusz/chevereto-railway",
+        "rootDirectory": null
+      },
+      "variables": {
+        "PORT": {
+          "isOptional": false,
+          "description": "Port for Railway healthcheck probing. Do not change.",
+          "defaultValue": "8080"
+        },
+        "CHEVERETO_HTTPS": {
+          "isOptional": false,
+          "description": "Keep 1 \u2014 Railway serves HTTPS.",
+          "defaultValue": "1"
+        },
+        "CHEVERETO_DB_HOST": {
+          "isOptional": false,
+          "description": "Wired automatically to the mysql service. Don't change.",
+          "defaultValue": "${{mysql.RAILWAY_PRIVATE_DOMAIN}}"
+        },
+        "CHEVERETO_DB_NAME": {
+          "isOptional": false,
+          "description": "Don't change.",
+          "defaultValue": "chevereto"
+        },
+        "CHEVERETO_DB_PASS": {
+          "isOptional": false,
+          "description": "Wired automatically to the mysql service. Don't change.",
+          "defaultValue": "${{mysql.MYSQL_PASSWORD}}"
+        },
+        "CHEVERETO_DB_PORT": {
+          "isOptional": false,
+          "description": "Don't change.",
+          "defaultValue": "3306"
+        },
+        "CHEVERETO_DB_USER": {
+          "isOptional": false,
+          "description": "Don't change.",
+          "defaultValue": "chevereto"
+        },
+        "CHEVERETO_HOSTNAME": {
+          "isOptional": false,
+          "description": "Public domain wired automatically. Don't change.",
+          "defaultValue": "${{RAILWAY_PUBLIC_DOMAIN}}"
+        },
+        "CHEVERETO_MAX_POST_SIZE": {
+          "isOptional": false,
+          "description": "Max upload request size.",
+          "defaultValue": "2G"
+        },
+        "CHEVERETO_MAX_UPLOAD_FILE_SIZE": {
+          "isOptional": false,
+          "description": "Max single file size.",
+          "defaultValue": "2G"
+        }
+      },
+      "networking": {
+        "serviceDomains": {
+          "<hasDomain>": {}
+        }
+      },
+      "volumeMounts": {
+        "74f199f5-3a88-483b-9fa8-5fa338164569": {
+          "mountPath": "/var/www/html/images"
+        }
+      }
+    },
+    "f0ad3766-f640-4be6-a12f-95a3d6690cd0": {
+      "icon": "https://www.mysql.com/common/logos/logo-mysql-170x115.png",
+      "name": "mysql",
+      "deploy": {
+        "startCommand": "docker-entrypoint.sh mysqld --datadir=/var/lib/mysql/data",
+        "healthcheckPath": null,
+        "restartPolicyType": "ON_FAILURE",
+        "restartPolicyMaxRetries": 10
+      },
+      "source": {
+        "image": "mysql:8"
+      },
+      "variables": {
+        "MYSQL_USER": {
+          "isOptional": false,
+          "description": "Don't change.",
+          "defaultValue": "chevereto"
+        },
+        "MYSQL_DATABASE": {
+          "isOptional": false,
+          "description": "Don't change.",
+          "defaultValue": "chevereto"
+        },
+        "MYSQL_PASSWORD": {
+          "isOptional": false,
+          "description": "Database password. Auto generated.",
+          "defaultValue": "${{secret(32)}}"
+        },
+        "MYSQL_RANDOM_ROOT_PASSWORD": {
+          "isOptional": false,
+          "description": "Don't change.",
+          "defaultValue": "1"
+        }
+      },
+      "volumeMounts": {
+        "f0ad3766-f640-4be6-a12f-95a3d6690cd0": {
+          "mountPath": "/var/lib/mysql"
+        }
+      }
+    }
+  }
+}
