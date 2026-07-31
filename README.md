@@ -4,6 +4,14 @@
 
 [Chevereto](https://chevereto.com/) is a self-hosted image and video sharing platform — your own Imgur: drag-and-drop uploads, albums, tags, user accounts, moderation tools, and direct hotlink URLs, running on your own domain with your own rules. This template deploys the free open-source edition (Chevereto V4, AGPLv3).
 
+## Screenshots
+
+![Chevereto drag and drop uploader](https://raw.githubusercontent.com/nomideusz/chevereto-railway/main/images/01.jpg)
+
+![Chevereto user profile gallery](https://raw.githubusercontent.com/nomideusz/chevereto-railway/main/images/02.jpg)
+
+![Chevereto admin dashboard with stats](https://raw.githubusercontent.com/nomideusz/chevereto-railway/main/images/03.jpg)
+
 ## About Hosting Chevereto
 
 This template runs Chevereto as two Railway services: the Chevereto app (PHP, listening on port 8080) and MySQL 8. Uploaded media persists on a volume mounted at `/var/www/html/images`; the database lives on its own volume. Upload limits are preconfigured to 2 GB per file. On first visit, Chevereto's built-in installer asks you to create the admin account — no CLI needed.
