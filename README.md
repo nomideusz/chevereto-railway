@@ -1,6 +1,6 @@
 # Deploy and Host Chevereto on Railway
 
-[![Deploy on Railway](https://railway.com/button.svg)](https://railway.com/new/template/chevereto?utm_medium=integration&utm_source=button&utm_campaign=chevereto)
+[![Deploy on Railway](https://railway.com/button.svg)](https://railway.com/new/template/chevereto?referralCode=sLjDXb&utm_medium=integration&utm_source=button&utm_campaign=chevereto)
 
 [Chevereto](https://chevereto.com/) is a self-hosted image and video sharing platform — your own Imgur: drag-and-drop uploads, albums, tags, user accounts, moderation tools, and direct hotlink URLs, running on your own domain with your own rules. This template deploys the free open-source edition (Chevereto V4, AGPLv3).
 
