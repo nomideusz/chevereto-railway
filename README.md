@@ -6,11 +6,11 @@
 
 ## Screenshots
 
-![Chevereto drag and drop uploader](https://raw.githubusercontent.com/nomideusz/chevereto-railway/main/images/01.jpg)
+![Chevereto drag and drop uploader](https://raw.githubusercontent.com/two-workspaces/chevereto/main/images/01.jpg)
 
-![Chevereto user profile gallery](https://raw.githubusercontent.com/nomideusz/chevereto-railway/main/images/02.jpg)
+![Chevereto user profile gallery](https://raw.githubusercontent.com/two-workspaces/chevereto/main/images/02.jpg)
 
-![Chevereto admin dashboard with stats](https://raw.githubusercontent.com/nomideusz/chevereto-railway/main/images/03.jpg)
+![Chevereto admin dashboard with stats](https://raw.githubusercontent.com/two-workspaces/chevereto/main/images/03.jpg)
 
 ## About Hosting Chevereto
 
@@ -29,7 +29,7 @@ This template runs Chevereto as two Railway services: the Chevereto app (PHP, li
 ### Deployment Dependencies
 
 - [Chevereto V4 documentation](https://v4-docs.chevereto.com/)
-- [Template source on GitHub](https://github.com/nomideusz/chevereto-railway)
+- [Template source on GitHub](https://github.com/two-workspaces/chevereto)
 
 ### Implementation Details
 
