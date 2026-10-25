@@ -1,4 +1,4 @@
-FROM ghcr.io/chevereto/chevereto:latest
+FROM ghcr.io/chevereto/chevereto:4.5.7
 
 # Railway's image layer flattening resurrects the mpm_event symlinks that the
 # upstream image removed with a2dismod, so apache sees two MPMs and dies.
